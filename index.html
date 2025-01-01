@@ -355,6 +355,25 @@ body.locked {
     transform: translateY(0);
 }
 
+
+iframe.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999; 
+    border: none; 
+}
+
+
+.top-right-box.smaller {
+            transform: scale(0.8) translateX(60px);
+            right: 50px;
+    z-index: 4206969; /*the box stays on top */
+}
+
+
     </style>
 </head>
 <body>
@@ -465,22 +484,21 @@ const pages = {
             }
         }
 
-        function toggleFullScreen() {
-            const sidebar = document.querySelector('.sidebar');
-            const content = document.querySelector('.content');
-            const topRightBox = document.querySelector('.top-right-box');
-            const isHidden = sidebar.classList.contains('hidden');
+function toggleFullScreen() {
+    const iframe = document.querySelector('iframe'); // Targeting the iframe element
+    const cornerBox = document.querySelector('.top-right-box'); // Targeting the corner box
+    const isFullScreen = iframe.classList.contains('fullscreen'); // Check if iframe is already fullscreen
 
-            if (!isHidden) {
-                sidebar.classList.add('hidden');
-                content.classList.add('fullscreen');
-                topRightBox.classList.add('fullscreen');
-            } else {
-                sidebar.classList.remove('hidden');
-                content.classList.remove('fullscreen');
-                topRightBox.classList.remove('fullscreen');
-            }
-        }
+    if (!isFullScreen) {
+        iframe.classList.add('fullscreen'); // Add fullscreen class to iframe
+        cornerBox.classList.add('smaller'); // Make the corner box smaller
+    } else {
+        iframe.classList.remove('fullscreen'); // Remove fullscreen class from iframe
+        cornerBox.classList.remove('smaller'); // Restore corner box size
+    }
+}
+
+
 
 const folderMenu = document.getElementById('folder-menu');
 const folderContainer = document.getElementById('folder-container');
